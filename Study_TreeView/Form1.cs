@@ -51,6 +51,32 @@ namespace Study_TreeView
             treeView1.CollapseAll();
         }
 
+        // TreeView 더블클릭 -> lboxCommand에 Node 경로를 넣는다
+        private void treeView1_DoubleClick(object sender, EventArgs e)
+        {
+            string strSelectPath = treeView1.SelectedNode.FullPath;
+
+            if (lboxCommand.Items.Contains(strSelectPath))
+            {
+                MessageBox.Show("선택한 폴더는 이미 Command에 등록되어 있습니다");
+            }
+            else
+            {
+                lboxCommand.Items.Add(strSelectPath);
+            }
+            
+        }
+
+        // lboxCommand 더블클릭 -> 선택된 Item 삭제
+        private void lboxCommand_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            lboxCommand.Items.RemoveAt(lboxCommand.SelectedIndex);
+
+        }
+
+
+
+
 
         #region TreeView Node Funtion Set
 
@@ -85,13 +111,15 @@ namespace Study_TreeView
 
             return directoryNode;
         }
-        #endregion
 
+
+        #endregion
 
         #region Log OverLoading
 
 
         #endregion
+
 
     }
 }
