@@ -28,14 +28,14 @@ namespace Study_TreeView
         }
 
 
-        //TreeNode 경로 
+        // 경로 btn
         private void btnTreeLoad_Click(object sender, EventArgs e)
         {
             TreeViewLoadPath(treeView1, tboxLocation.Text);
         }
 
 
-        // 선택한 Node의 하위노드를 펼치기
+        // 선택한 Node의 하위노드를 펼치기  Expand btn
         private void btnExtend_Click(object sender, EventArgs e)
         {
             if(treeView1.SelectedNode != null)
@@ -44,7 +44,7 @@ namespace Study_TreeView
             }
         }
 
-        //TreeNode 전체 닫기
+        //TreeNode 전체 닫기    Collapse btn
 
         private void btnCollapse_Click(object sender, EventArgs e)
         {
@@ -115,12 +115,11 @@ namespace Study_TreeView
         {
             lboxCommand.Items.RemoveAt(lboxCommand.SelectedIndex);
 
-
         }
 
         
 
-        // FileSystem import WHY 안되는가^^........
+        // FileSystem import WHY 안되는가^^........ Copy btn
         private void btnCopy_Click(object sender, EventArgs e)
         {
             string Path = SearchPath();  
@@ -133,13 +132,11 @@ namespace Study_TreeView
             //FileSystem.CopyDirectory(Path, BackPath, UIOption.AllDialogs);
 
             Log(enLogLevel.Info, "경로 BackUp을 완료 했습니다");
-
-
         }
 
 
-        #region TreeView Node Funtion Set
 
+        #region TreeView Node Funtion Set
         //TreeView를 그리는 함수
         private void TreeViewLoadPath(TreeView treeView, string path)
         {
@@ -178,8 +175,8 @@ namespace Study_TreeView
         #endregion
 
 
-        #region  SearchPath /Log OverLoading 
 
+        #region  SearchPath /Log OverLoading 
         private void Log(enLogLevel eLevel, string strLog)
         {
             DateTime dt = DateTime.Now;
@@ -200,12 +197,7 @@ namespace Study_TreeView
             string dirPath = $@"{lastFolder}\{strpath}"; 
 
             return dirPath;
-
-
         }
-
-
-
         #endregion
 
 
