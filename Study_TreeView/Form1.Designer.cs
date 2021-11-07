@@ -36,6 +36,7 @@ namespace Study_TreeView
             this.tboxLocation = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.tboxFile = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.lboxCommand = new System.Windows.Forms.ListBox();
@@ -48,7 +49,6 @@ namespace Study_TreeView
             this.btnCopy = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.lboxLog = new System.Windows.Forms.ListBox();
-            this.tboxFile = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -129,6 +129,14 @@ namespace Study_TreeView
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Location";
             // 
+            // tboxFile
+            // 
+            this.tboxFile.Location = new System.Drawing.Point(396, 172);
+            this.tboxFile.Multiline = true;
+            this.tboxFile.Name = "tboxFile";
+            this.tboxFile.Size = new System.Drawing.Size(348, 168);
+            this.tboxFile.TabIndex = 14;
+            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -155,6 +163,7 @@ namespace Study_TreeView
             this.lboxCommand.Name = "lboxCommand";
             this.lboxCommand.Size = new System.Drawing.Size(348, 79);
             this.lboxCommand.TabIndex = 10;
+            this.lboxCommand.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lboxCommand_MouseClick);
             this.lboxCommand.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lboxCommand_MouseDoubleClick);
             // 
             // label5
@@ -220,6 +229,7 @@ namespace Study_TreeView
             this.btnCopy.TabIndex = 14;
             this.btnCopy.Text = "Copy";
             this.btnCopy.UseVisualStyleBackColor = true;
+            this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
             // 
             // groupBox3
             // 
@@ -239,14 +249,6 @@ namespace Study_TreeView
             this.lboxLog.Name = "lboxLog";
             this.lboxLog.Size = new System.Drawing.Size(738, 94);
             this.lboxLog.TabIndex = 0;
-            // 
-            // tboxFile
-            // 
-            this.tboxFile.Location = new System.Drawing.Point(396, 172);
-            this.tboxFile.Multiline = true;
-            this.tboxFile.Name = "tboxFile";
-            this.tboxFile.Size = new System.Drawing.Size(348, 168);
-            this.tboxFile.TabIndex = 14;
             // 
             // Form1
             // 
