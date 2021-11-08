@@ -14,6 +14,29 @@ namespace Study_TreeView
     public partial class Form1 : Form
     {
 
+        /// <summary>
+        /// 폴더 이해하기^^........
+        /// 
+        ///     ex) D:\dev\C#Work    를 tboxLocatio에 입력함
+        ///     TreeView에서 C#Work안의 Study_TreeView 폴더  더블클릭
+        ///     lboxCommand에 C#Work\Study_TreeView 가 Add됨(한 단계 상위+선택Node)
+        ///     lboxCommand 클릭 시 Study_TreeView안의 폴더+파일 내용 보여줌(선택Node에 담긴)
+        ///     
+        ///     
+        /// 1)
+        ///     treeView1.SelectedNode.FullPath;   ->  C#Work\Study_TreeView
+        ///     한단계 상위 폴더\선택 폴더 까지만 된다(D:\dev 까진 안 찍힘) Root는 X
+        ///2)
+        ///      Path.GetDirectoryName(path);    ->D:\dev
+        ///      예시에서의 마지막 폴더인 C#Work는 잘림. 앞의 경로 D:\dev만
+        ///     
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// 
+
+
+
         // Log Level 지정
         enum enLogLevel
         {
@@ -28,7 +51,7 @@ namespace Study_TreeView
         }
 
 
-        // 경로 btn
+        // 경로 btn  #region TreeView Node Funtion Set 참조
         private void btnTreeLoad_Click(object sender, EventArgs e)
         {
             TreeViewLoadPath(treeView1, tboxLocation.Text);
@@ -45,16 +68,17 @@ namespace Study_TreeView
         }
 
         //TreeNode 전체 닫기    Collapse btn
-
         private void btnCollapse_Click(object sender, EventArgs e)
         {
             treeView1.CollapseAll();
         }
 
+
+
         // TreeView 더블클릭 -> lboxCommand에 Node 경로를 넣는다
         private void treeView1_DoubleClick(object sender, EventArgs e)
         {
-            string strSelectPath = treeView1.SelectedNode.FullPath;
+            string strSelectPath = treeView1.SelectedNode.FullPath;   //한단계 상위Node ~ 선택한Node까지 FullPath
 
             if (lboxCommand.Items.Contains(strSelectPath))
             {
@@ -68,14 +92,14 @@ namespace Study_TreeView
                 lboxCommand.Items.Add(strSelectPath);
                 //lboxCommand.Items.Add(treeView1.SelectedNode.FullPath);
             }
-            
         }
 
 
-        // lboxCommand 클릭 -> 아래의 TextBox에 폴더와 파일명 보여줌
+        // lboxCommand 클릭 -> 아래의 TextBox에 폴더와 파일 보여줌
         private void lboxCommand_MouseClick(object sender, MouseEventArgs e)
         {
-            if (lboxCommand.SelectedItem == null) return;   // 선택 된 아이템이 없을 경우 return
+
+            if (lboxCommand.SelectedItem == null) return;   // 에러방지
 
 
             StringBuilder sb = new StringBuilder();
@@ -109,7 +133,6 @@ namespace Study_TreeView
         }
 
 
-
         // lboxCommand 더블클릭 -> 선택된 Item 삭제
         private void lboxCommand_MouseDoubleClick(object sender, MouseEventArgs e)
         {
@@ -129,7 +152,7 @@ namespace Study_TreeView
             Log(enLogLevel.Info,$"원본 경로 {Path}");
             Log(enLogLevel.Info, $"백업 경로 {BackUpPath}");
 
-         // FileSystem.CopyDirectory(Path, BackUpPath, UIOption.AllDialogs);
+            //FileSystem.CopyDirectory(Path, BackUpPath, UIOption.AllDialogs);
 
             Log(enLogLevel.Info, "경로 BackUp을 완료 했습니다");
         }
@@ -145,14 +168,14 @@ namespace Study_TreeView
                 Log(enLogLevel.Warning, "경로가 입력되지 않았습니다.");
             }
 
-            treeView.Nodes.Clear();   //중복되서 찍히기 않게 기존의 TreeView 초기화
+            treeView.Nodes.Clear();   // 클릭 할 때 마다 중복해서 찍히기 않게 기존의 TreeView 초기화
 
             DirectoryInfo rootDirectoryInfo = new DirectoryInfo(path);  // DirectoryInfo class 선언 ★
-            treeView.Nodes.Add(CreateDirectoryNode(rootDirectoryInfo));  // 다 합체된 완성된 폴더를 Add
+            treeView.Nodes.Add(CreateDirectoryNode(rootDirectoryInfo));  // 다 합체된 완성된 폴더를 Add ★
         }
 
 
-        // 경로에 따른 폴더 찾는 함수
+        // 경로에 따른 폴더(노드) 찾는 함수
         // 하위폴더 3번째 -> 하위폴더 2번째 -> 하위폴더 1번째 -> Root
         // 아래에서 부터 위로 합체되서 올라간다는 느낌(재귀함수)
         private TreeNode CreateDirectoryNode(DirectoryInfo directoryInfo)
@@ -160,7 +183,7 @@ namespace Study_TreeView
             TreeNode directoryNode = new TreeNode(directoryInfo.Name);
 
 
-            //디렉토리 Nond 찾기 foreach
+            //디렉토리 Node 찾기 foreach
             foreach (var directory in directoryInfo.GetDirectories())   // 해당 경로의 디렉토리를 배열로 가져옴
                 directoryNode.Nodes.Add(CreateDirectoryNode(directory));   // 경로를 재귀 함수로 계속 호출 하면서 하위 노드 들을 찾아 옴
 
@@ -185,16 +208,16 @@ namespace Study_TreeView
         }
 
 
-        //★
-        //tboxLocation에 적어준 경로~lboxCommand에서 선택한 경로 까지 합쳐줌
+        //★ 경로 완성시키기!!!!!!
+        //Root 경로 ~ lboxCommand에서 선택한 경로 까지 합쳐줌
         private string SearchPath()
-        {
+        { 
+            string path = tboxLocation.Text;    // D:\dev\C#Work
 
-            string path = tboxLocation.Text;
-            var lastFolder = Path.GetDirectoryName(path);
-            string strpath = lboxCommand.SelectedItem.ToString();   
+            var lastFolder = Path.GetDirectoryName(path);       // D:\dev  !마지막폴더인 C#Work는 짤림!
+            string strpath = lboxCommand.SelectedItem.ToString();     // C#Work\Study_TreeView 
 
-            string dirPath = $@"{lastFolder}\{strpath}"; 
+            string dirPath = $@"{lastFolder}\{strpath}";  // {D:\dev}\{C#Work\Study_TreeView}
 
             return dirPath;
         }
