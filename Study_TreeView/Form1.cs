@@ -38,7 +38,7 @@ namespace Study_TreeView
 
 
         // Log Level 지정
-        enum enLogLevel
+        public enum enLogLevel
         {
             Info,
             Warning,
@@ -199,11 +199,11 @@ namespace Study_TreeView
 
 
 
-        #region  SearchPath /Log OverLoading 
+        #region  Log / SearchPath 
         private void Log(enLogLevel eLevel, string strLog)
         {
             DateTime dt = DateTime.Now;
-            string LogInfo = $"{dt:yyyy-mm-dd hh:mm:ss:fff} [{eLevel.ToString()}] {strLog}";
+            string LogInfo = $"{dt:yyyy-M-dd hh:mm:ss:ff} [{eLevel.ToString()}] {strLog}";
             lboxLog.Items.Insert(0, LogInfo);
         }
 
@@ -211,18 +211,18 @@ namespace Study_TreeView
         //★ 경로 완성시키기!!!!!!
         //Root 경로 ~ lboxCommand에서 선택한 경로 까지 합쳐줌
         private string SearchPath()
-        { 
-            string path = tboxLocation.Text;    // D:\dev\C#Work
+        {
+ 
+             string path = tboxLocation.Text;    // D:\dev\C#Work
 
-            var lastFolder = Path.GetDirectoryName(path);       // D:\dev  !마지막폴더인 C#Work는 짤림!
-            string strpath = lboxCommand.SelectedItem.ToString();     // C#Work\Study_TreeView 
+             var lastFolder = Path.GetDirectoryName(path);       // D:\dev  !마지막폴더인 C#Work는 짤림!
+             string strpath = lboxCommand.SelectedItem.ToString();     // C#Work\Study_TreeView 
 
-            string dirPath = $@"{lastFolder}\{strpath}";  // {D:\dev}\{C#Work\Study_TreeView}
+             string dirPath = $@"{lastFolder}\{strpath}";  // {D:\dev}\{C#Work\Study_TreeView}
 
-            return dirPath;
+
+             return dirPath;
         }
         #endregion
-
-
     }
 }
