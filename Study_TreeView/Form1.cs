@@ -129,7 +129,7 @@ namespace Study_TreeView
             Log(enLogLevel.Info,$"원본 경로 {Path}");
             Log(enLogLevel.Info, $"백업 경로 {BackUpPath}");
 
-            //FileSystem.CopyDirectory(Path, BackPath, UIOption.AllDialogs);
+         // FileSystem.CopyDirectory(Path, BackUpPath, UIOption.AllDialogs);
 
             Log(enLogLevel.Info, "경로 BackUp을 완료 했습니다");
         }
