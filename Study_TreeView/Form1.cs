@@ -15,7 +15,7 @@ namespace Study_TreeView
     {
 
         /// <summary>
-        /// 폴더 이해하기^^........
+        /// 폴더 이해........
         /// 
         ///     ex) D:\dev\C#Work    를 tboxLocatio에 입력함
         ///     TreeView에서 C#Work안의 Study_TreeView 폴더  더블클릭
@@ -95,7 +95,7 @@ namespace Study_TreeView
         }
 
 
-        // lboxCommand 클릭 -> 아래의 TextBox에 폴더와 파일 보여줌
+        // lboxCommand 클릭 -> 제일 하위 폴더의 파일+폴더 보여줌
         private void lboxCommand_MouseClick(object sender, MouseEventArgs e)
         {
 
@@ -171,13 +171,14 @@ namespace Study_TreeView
             treeView.Nodes.Clear();   // 클릭 할 때 마다 중복해서 찍히기 않게 기존의 TreeView 초기화
 
             DirectoryInfo rootDirectoryInfo = new DirectoryInfo(path);  // DirectoryInfo class 선언 ★
+            //TreeNode tree = new TreeNode();
             treeView.Nodes.Add(CreateDirectoryNode(rootDirectoryInfo));  // 다 합체된 완성된 폴더를 Add ★
         }
 
 
         // 경로에 따른 폴더(노드) 찾는 함수
         // 하위폴더 3번째 -> 하위폴더 2번째 -> 하위폴더 1번째 -> Root
-        // 아래에서 부터 위로 합체되서 올라간다는 느낌(재귀함수)
+        // 아래에서 부터 위로 합체되서 올라감 (재귀함수)
         private TreeNode CreateDirectoryNode(DirectoryInfo directoryInfo)
         {
             TreeNode directoryNode = new TreeNode(directoryInfo.Name);
@@ -216,7 +217,7 @@ namespace Study_TreeView
              string path = tboxLocation.Text;    // D:\dev\C#Work
 
              var lastFolder = Path.GetDirectoryName(path);       // D:\dev  !마지막폴더인 C#Work는 짤림!
-             string strpath = lboxCommand.SelectedItem.ToString();     // C#Work\Study_TreeView 
+             string strpath = lboxCommand.SelectedItem.ToString();     //  C#Work\Study_TreeView 
 
              string dirPath = $@"{lastFolder}\{strpath}";  // {D:\dev}\{C#Work\Study_TreeView}
 
